@@ -26,11 +26,6 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 
-    public User findUserByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User with username " + username + " not found"));
-    }
-
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new EntityNotFoundException("User with email " + email + " not found"));
@@ -68,17 +63,14 @@ public class UserService {
         User existingUser = userRepository.findById(id).orElse(null);
 
         if (existingUser != null) {
-            if (userDto.getUsername() != null && !userDto.getUsername().equals(userRepository.findByUsername(existingUser.getUsername()))){
-                existingUser.setUsername(userDto.getUsername());
-            }
-            if (userDto.getEmail() != null && !userDto.getEmail().equals(userRepository.findByEmail(existingUser.getEmail()))){
+            if (userDto.getEmail() != null || !userDto.getEmail().equals(userRepository.findByEmail(existingUser.getEmail()))){
                 existingUser.setEmail(userDto.getEmail());
             }
             if (userDto.getPassword() != null){
-                existingUser.setUsername(userDto.getUsername());
+                existingUser.setPassword(userDto.getPassword());
             }
         } else {
-            throw new EntityNotFoundException("User with username " + existingUser.getUsername() + " not found");
+            throw new EntityNotFoundException("User with email " + existingUser.getEmail() + " not found");
         }
 
         return userRepository.save(existingUser);

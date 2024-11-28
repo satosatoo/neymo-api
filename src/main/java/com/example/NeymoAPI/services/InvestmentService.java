@@ -60,13 +60,13 @@ public class InvestmentService {
         Investment investment = investmentRepository.findById(id).orElse(null);
 
         if (investment != null) {
-            if (investmentDto.getInvestment_name() != null && !Objects.equals(investmentDto.getInvestment_name(), investment.getInvestment_name())) {
+            if (investmentDto.getInvestment_name() != null || !Objects.equals(investmentDto.getInvestment_name(), investment.getInvestment_name())) {
                 investment.setInvestment_name(investmentDto.getInvestment_name());
             }
-            if (investmentDto.getQuantity() != null && !Objects.equals(investmentDto.getQuantity(), investment.getQuantity())) {
+            if (investmentDto.getQuantity() != null || !Objects.equals(investmentDto.getQuantity(), investment.getQuantity())) {
                 investment.setQuantity(investmentDto.getQuantity());
             }
-            if (investmentDto.getType() != null && !Objects.equals(investmentDto.getType(), investment.getType())) {
+            if (investmentDto.getType() != null || !Objects.equals(investmentDto.getType(), investment.getType())) {
                 investment.setType(investmentDto.getType());
             }
         } else {

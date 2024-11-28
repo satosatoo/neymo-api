@@ -60,13 +60,13 @@ public class ExpenseService {
         Expense existingExpense = expenseRepository.findById(id).orElse(null);
 
         if (existingExpense != null) {
-            if (expenseDto.getExpense_name() != null && !expenseDto.getExpense_name().equals(existingExpense.getExpense_name())) {
+            if (expenseDto.getExpense_name() != null || !expenseDto.getExpense_name().equals(existingExpense.getExpense_name())) {
                 existingExpense.setExpense_name(expenseDto.getExpense_name());
             }
-            if (expenseDto.getAmount() != null && !expenseDto.getAmount().equals(existingExpense.getAmount()) && expenseDto.getAmount() <= 0) {
+            if (expenseDto.getAmount() != null || !expenseDto.getAmount().equals(existingExpense.getAmount()) || expenseDto.getAmount() <= 0) {
                 existingExpense.setAmount(expenseDto.getAmount());
             }
-            if (expenseDto.getCategory() != null && !expenseDto.getCategory().equals(existingExpense.getCategory())) {
+            if (expenseDto.getCategory() != null || !expenseDto.getCategory().equals(existingExpense.getCategory())) {
                 existingExpense.setCategory(expenseDto.getCategory());
             }
             existingExpense.setDescription(expenseDto.getDescription());
